@@ -1,0 +1,13 @@
+{% set nbTotal = 0 %}
+{% if listAuthors is empty %}
+<h1> le tableau est vide </h1>
+{% else %}
+<ul>
+{% for a in listAuthors %}
+{% set nbTotal = nbTotal + a.nbBooks %}
+<li> <a href="{{ path('app_author_details',{'id':a.id}) }}"> Details </a> {{ a.id }} -- {{ a.username | upper }} {# <img src="{{ a.picture }} " > #}  </li>
+{% endfor %}
+</ul>
+{% endif %}
+Le nombre d'auteurs est : {{ listAuthors | length }} <br>
+Le nombre total des livres : {{ nbTotal }}
