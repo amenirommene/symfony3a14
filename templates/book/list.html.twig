@@ -1,0 +1,14 @@
+<table>
+<th>
+<td>Title</td>
+<td>date</td>
+<td>auteur</td>
+</th>
+{% for b in list %}
+<tr>
+<td>{{b.title}}</td>
+<td>{{b.publicationDate | date("y-m-d")}}</td>
+<td>{{b.author.username}}</td>
+</tr>
+{% endfor %}
+</table>
