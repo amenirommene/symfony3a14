@@ -35,7 +35,8 @@ class AuthorController extends AbstractController
     #[Route('/list', name: 'app_author_list')]
     public function listAuthors (AuthorRepository $repo): Response
     {
-        $authors = $repo->findAll();
+       // $authors = $repo->findAll();
+       $authors = $repo->getAuthorByUserName('aziz');
        // $authors = [];
        /* $authors = array(
             array('id' => 1, 'picture' => 'images/image1.jpg','username' => 'Victor Hugo', 'email' => 'victor.hugo@gmail.com ', 'nb_books' => 100),
@@ -44,6 +45,22 @@ class AuthorController extends AbstractController
             );  */
         return $this->render('author/list.html.twig', 
         ['listAuthors' =>  $authors ]);}
+
+        #[Route('/author/{usname}', name: 'app_author_list_username')]
+    public function listAuthorsByUsername ($usname,AuthorRepository $repo): Response
+    {
+       // $authors = $repo->findAll();
+       $authors = $repo->getAuthorByUserNameDQL($usname);
+       // $authors = [];
+       /* $authors = array(
+            array('id' => 1, 'picture' => 'images/image1.jpg','username' => 'Victor Hugo', 'email' => 'victor.hugo@gmail.com ', 'nb_books' => 100),
+            array('id' => 2, 'picture' => 'images/image2.jpg','username' => ' William Shakespeare', 'email' =>  ' william.shakespeare@gmail.com', 'nb_books' => 200 ),
+            array('id' => 3, 'picture' => 'images/image3.jpg','username' => 'Taha Hussein', 'email' => 'taha.hussein@gmail.com', 'nb_books' => 300),
+            );  */
+        return $this->render('author/list.html.twig', 
+        ['listAuthors' =>  $authors ]);}
+
+
 
         #[Route('/details/{id}', name: 'app_author_details')]
         public function authorDetails (Request $request,AuthorRepository $repo): Response

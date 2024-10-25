@@ -19,10 +19,18 @@ class BookController extends AbstractController
         $form=$this->createForm(BookType::class,$book);
         $form->handleRequest($rq);
             if ($form->isSubmitted()){
+         //  $title=$form->getData()->getTitle();
+            $title=$book->getTitle();
+            $existingBook=$doctrine->getRepository(Book::class)->findBy(['title'=>$title]);
+            if ($existingBook){
+                return new Response ("existing book");
+            }
+            else{
               //ajout dans la base 
             $aziz=$doctrine->getManager();
             $aziz->persist($book);
             $aziz->flush();
+            }
             }
         return $this->render('book/index.html.twig', [
             'myForm' => $form->createView(),
